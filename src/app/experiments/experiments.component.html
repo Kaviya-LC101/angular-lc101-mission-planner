@@ -1,6 +1,18 @@
 <h3>Experiments</h3>
 <ul>
-  <li>Mars soil sample</li>
-  <li>Plant growth in habitat</li>
-  <li>Human bone density</li>
+  <li *ngFor="let work of experiment">
+    <span *ngIf="workBeingEdited != work;else elseBlock">
+      <span (click)="edit(work)">{{work}}</span>
+    <button (click)="remove(work)">Remove</button>
+  </span>
+  <ng-template #elseBlock>
+    <input #updateWork (keyup.enter)="save(updateWork.value,work)" value="{{work}}"/>
+    <button (click)="save(updateWork.value,work)">Save</button>
+  </ng-template>
+  </li>
+  
 </ul>
+<div>
+  <input #newExperiment type='text'/>
+  <button (click)="add(newExperiment.value); newExperiment.value=''">Add</button>
+</div>
